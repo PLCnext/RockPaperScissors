@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  rps:
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src/static:/src/static
+      - ./emu:/src/static/emulation/0815-0001
+    environment:
+      PORT: 8000
+      PYLON_CAMEMU: 2 # number of emulation cameras
+      BANDWIDTH_UNIT: MB # MB or Mbit
+      CAMERA_WIDTH: 1000 # width of crop
+      CAMERA_HEIGHT: 1000 # height of crop
+      CAMERA_PIXEL_FORMAT: BayerRG8 # BGR8 or BayerRG8
+      CAMERA_EXPOSURE_TIME: 10000
+      CAMERA_DIGITAL_SHIFT: 0
+      CAMERA_GAMMA: 2
+      CAMERA_ROTATION: 180 # rotate by 180°
+      MODEL_SAMPLING_FACTOR: 5 # every n-th image
+      MODEL_VERSION: "72"
+      # OPCUA__URL: opc.tcp://admin:ae016986@192.168.2.199:4840
+      # OPCUA__NODEID: ns=6;s=Arp.Plc.Eclr/Fair1.iPrediction

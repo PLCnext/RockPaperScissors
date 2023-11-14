@@ -1,0 +1,21 @@
+<div class="dropdown-menu p-4 bg-dark-subtle" style="width: 500px !important;" action="javascript:void(0);"
+    id="settings">
+    {%- for name, values in fields.items() %}
+    {{render_partial('fragments/slider.html.jinja', name=name, **values)}}
+    {%- endfor %}
+
+    <div class="row mt-4 justify-content-center">
+        <div class="col-auto">
+            <button class="btn btn-primary text-uppercase fw-bold" _="on click
+            repeat in <#settings input:is([type='number'], [type='checkbox'])/>
+                tell it
+                if @type == 'checkbox'
+                    set it.checked to @value then send change to it
+                else
+                    set it.value to @value then send change to it
+                end
+            end
+            ">Reset</button>
+        </div>
+    </div>
+</div>

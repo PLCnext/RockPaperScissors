@@ -1,0 +1,14 @@
+asyncua==1.0.4
+einops==0.6.1
+fastapi==0.103.2
+Jinja2==3.1.2
+jinja_partials==0.1.1
+mlnext_framework==0.4.1
+onnxruntime==1.16.0
+opencv-python-headless==4.8.1.78
+pydantic==2.4.2
+pydantic-settings==2.0.3
+pypylon==2.3.0
+returns==0.22.0
+shortuuid==1.0.11
+uvicorn==0.23.2

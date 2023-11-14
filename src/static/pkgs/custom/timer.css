@@ -1,0 +1,75 @@
+.countdown {
+  background-color: rgba(0, 0, 0, 0.44);
+  color: #96BE0D;
+  font-size: 7em;
+  font-weight: bold;
+  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-width: 4px;
+}
+
+.countdown:before {
+  animation: countdown 5s linear;
+  content: 'Now!';
+}
+
+
+@keyframes countdown {
+  0% {
+    content: 'Ready?';
+  }
+
+  40% {
+    content: 'Let\'s Play!';
+  }
+
+  55% {
+    content: 'Rock';
+  }
+
+  70% {
+    content: 'Paper';
+  }
+
+  85% {
+    content: 'Scissors';
+  }
+
+  100% {
+    content: 'Now!';
+  }
+
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-attachment: fixed;
+}
+
+.bg-image {
+  position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+}
+
+.shutterClick {
+  animation: cameraFlash .3s .3s alternate-reverse 1;
+}
+
+@keyframes cameraFlash {
+  from {
+    box-shadow: 0;
+  }
+
+  to {
+    box-shadow: inset 0 0 0 100px #000;
+  }
+}

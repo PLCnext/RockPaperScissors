@@ -1,0 +1,44 @@
+<div class="row mb-3 align-items-center">
+    <div class="col-12">
+        <label for="{{name}}" class="form-label">
+            {{name}} {% if unit %}({{unit}}) {% endif %}
+        </label>
+        {% if enabled is not none %}
+        {# hack to always post the checkbox value https://stackoverflow.com/a/17491991/7938503 #}
+        <input type="hidden" id="{{name}}-enable-hidden" name="{{name}}Enable" value="off">
+        <input type="checkbox" class="form-check-input ms-3" id="{{name}}-enabled" {% if enabled %} checked {% endif %}
+            hx-post="/cameras/{camera}/settings" name="{{name}}Enable"
+            hx-include="[name='{{name}}Enable'], [name='camera']" _="on load or click
+               repeat in <input[id^='{{name}}']:not([type='checkbox'])/>
+                 tell it
+                 if @type == 'hidden'
+                    set {'disabled': me.checked} on it
+                 else
+                    set {'disabled': not me.checked} on it
+                end
+            " hx-ext="json-enc">
+        <label for="{{name}}-enabled">Enabled</label>
+        {% endif %}
+    </div>
+    {# {% if type == "IEnumeration" %}
+    <div class="col-12">
+        <select class="" hx-post="/cameras/{camera}/settings" hx-trigger="change" hx-ext="json-enc" hx-swap="none"
+            id="{{name}}-select">
+            {% for entry in entries %}
+            <option value="{{option}}" {% if entry==value %} selected {% endif %}>{{entry}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% else %} #}
+    <div class="col-4">
+        <input type="number" class="form-control" name="{{name}}" id="{{name}}-number" min="{{min}}" max="{{max}}"
+            step="1" value="{{value}}" _="on input or change put my.value into (the next <input/>).value"
+            hx-post="/cameras/{camera}/settings" hx-trigger="change delay:1s" hx-ext="json-enc">
+    </div>
+    <div class="col-8">
+        <input type="range" class="form-range" id="{{name}}-range" min="{{min}}" max="{{max}}" value="{{value}}"
+            step="1" _="on load or input or change put my.value into (the previous <input/>).value
+            on change send change to the previous <input/>">
+    </div>
+    {# {% endif %} #}
+</div>

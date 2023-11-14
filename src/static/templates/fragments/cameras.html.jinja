@@ -1,0 +1,15 @@
+{% if cameras %}
+<option value="" disabled {% if not selected %} selected {% endif %}>Select a camera</option>
+{% for camera in cameras %}
+<option value="{{camera}}" {% if camera==selected %} selected {% endif%}>{{camera}}</option>
+{% endfor %}
+{% else %}
+{{
+render_partial(
+'fragments/toast.html.jinja',
+message='No cameras available.',
+type='danger',
+delay=5000,
+id='cameras')
+}}
+{% endif %}

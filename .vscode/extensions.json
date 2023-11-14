@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "njpwerner.autodocstring",
+      "PeterSchmalfeldt.explorer-exclude",
+      "ms-toolsai.jupyter",
+      "buenon.scratchpads",
+      "redhat.vscode-yaml",
+      "samuelcolvin.jinjahtml",
+      "alefragnani.project-manager",
+      "charliermarsh.ruff"
+    ]
+  }
+  

@@ -1,0 +1,34 @@
+<div class="bg-image bg-dark-subtle d-flex justify-content-center align-items-center"
+  style="background-image: url({{url_for('static', path='img/bg.png')}});" id="stream-container">
+  <img src="{{url}}" style="width: 1000px; height: 1000px" id="stream">
+
+  <div class="mask d-flex justify-content-center flex-column text-center p-0" hx-trigger="play"
+    hx-sync="this:abort" hx-post="/cameras/{camera}/play" hx-swap="none" id="countdown" _="
+      on animationend
+        if I match .countdown
+          wait 1s
+          remove .countdown from me
+          add .shutterClick to me
+          send play to me
+        else
+          remove .shutterClick from me
+        end
+      end
+      on click
+        if I match .countdown
+            remove .countdown from me
+        else
+            add .countdown to me
+        end
+      end
+        ">
+  </div>
+</div>
+
+
+{{render_partial(
+'fragments/toast.html.jinja',
+message=message,
+type='success',
+delay=5000,
+)}}

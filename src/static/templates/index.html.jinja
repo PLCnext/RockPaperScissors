@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Rock Paper Scissor - SPS 2023</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='pkgs/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='pkgs/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='pkgs/custom/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='pkgs/custom/timer.css') }}">
+
+    <script src="{{ url_for('static', path='pkgs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', path='pkgs/popper/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', path='pkgs/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', path='pkgs/htmx/htmx.min.js') }}"></script>
+    <script src="{{ url_for('static', path='pkgs/hyperscript/hyperscript.min.js') }}"></script>
+    <script src="{{ url_for('static', path='pkgs/htmx/json-enc.js') }}"></script>
+    <script src="{{ url_for('static', path='pkgs/htmx/path-params.js') }}"></script>
+    <script src="{{ url_for('static', path='pkgs/htmx/disable-element.js') }}"></script>
+
+</head>
+
+<body>
+
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+        <div class="toast-container top-0 end-0 p-3" id="notifications">
+        </div>
+    </div>
+    <div id="content" class="container text-white min-vh-100">
+        <div class="row">
+            <div class="col mb-4">
+                <h1>Rock Paper Scissors</h1>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <select class="form-select" hx-get="/cameras" hx-swap="innerHTML" hx-trigger="load delay:250ms"
+                    htmx-indicator="#spinner" id="cameras" name="camera" _="on change send newCamera to <body/>">
+                    <option value="loading..." id="spinner" class="htmx-indicator" selected disabled>
+                        Loading...
+                    </option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary fw-bold text-uppercase" hx-get="/cameras" hx-include="#cameras"
+                    hx-target="#cameras">Refresh</button>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-secondary"
+                    _="on click if #stream exists requestFullscreen() on #stream-container else alert('Please select a camera first.')"><i
+                        class="fa-solid fa-expand fa-xl"></i></button>
+            </div>
+            <div class="col-auto">
+                <button class="btn active btn-secondary" hx-post="/cameras/{camera}/view" hx-ext="path-params"
+                    hx-include="[name='camera']" hx-swap="none" _="on htmx:beforeRequest
+                    if #stream exist
+                        toggle between .fa-gears and .fa-camera on the first <i/> in me
+                    else
+                        event.preventDefault()
+                        alert('Please select a camera first.')
+                    end
+                    "><i class="fa-solid fa-camera fa-xl"></i></button>
+            </div>
+            <div class="col-auto">
+                <button class="btn active btn-secondary" hx-post="/cameras/{camera}/rotate" hx-ext="path-params"
+                    hx-include="[name='camera']" hx-swap="none" _="on htmx:beforeRequest
+                    if #stream does not exist
+                        event.preventDefault()
+                        alert('Please select a camera first.')
+                    end
+                    "><i class="fa-solid fa-rotate-right fa-xl"></i>
+                </button>
+            </div>
+            <div class="col">
+                <div class="dropdown float-end">
+                    <button class="btn border-0" type="button" id="settings" data-bs-toggle="dropdown"
+                        data-bs-auto-close="false"
+                        _="on click if #stream does not exist alert('Please select a camera first.')">
+                        <i class="fa-solid fa-gear fa-xl"></i>
+                    </button>
+                    <div hx-get="/cameras/{camera}/settings" hx-trigger="newCamera from:body delay:1s"
+                        hx-ext="path-params" hx-include="[name='camera']">
+                    </div>
+                </div>
+                <div class="dropdown float-end">
+                    <button class="btn border-0" type="button" id="settings" data-bs-toggle="dropdown"
+                        data-bs-auto-close="false" _="
+                        on click
+                            tell the next <div/>
+                                if yourself matches .show
+                                    send open to yourself
+                                end
+                            end
+                        end
+                        ">
+                        <i class="fa-solid fa-circle-nodes fa-xl"></i>
+                    </button>
+                    <div class="dropdown-menu p-4 bg-dark-subtle" style="width: 500px !important;" hx-get="/opcua"
+                        hx-trigger="load, open">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 align-items-center justify-content-center">
+            <div id="video" class="col-auto justify-content-center" hx-get="/cameras/{camera}" hx-ext="path-params"
+                hx-include="[name='camera']" hx-trigger="newCamera from:body">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

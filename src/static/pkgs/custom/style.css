@@ -1,0 +1,18 @@
+@keyframes notification {
+    0% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0%;
+    }
+}
+
+.indicator {
+    width: 24px;
+    height: 24px;
+}
+
+input[type='range'] {
+    vertical-align: middle !important;
+}

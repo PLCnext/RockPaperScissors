@@ -1,0 +1,49 @@
+<form id="opcua" name="opcua" action="javascript:void(0)">
+    <div class="row mb-2">
+        <h4>OPC UA</h4>
+    </div>
+
+    {{
+    render_partial(
+    'fragments/text.html.jinja',
+    name='url',
+    placeholder='[opc.tcp|http|https]://[user]:[pass]@[host]:[port]/',
+    value=url
+    )
+    }}
+
+    {{
+    render_partial(
+    'fragments/text.html.jinja',
+    name='nodeid',
+    placeholder='ns:[index];s=[name]',
+    value=nodeid
+    )
+    }}
+
+    <div class="row mt-4 justify-content-center">
+        <div class="col-auto">
+            <button class="btn btn-success text-uppercase fw-bold" hx-post="/opcua" hx-ext="json-enc" hx-target="#opcua"
+                hx-swap="outerHTML">Confirm</button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary text-uppercase fw-bold" _="on click
+            repeat in <#opcua input/>
+                tell it
+                set it.value to @value then send change to it
+            end
+            ">Reset</button>
+        </div>
+    </div>
+</form>
+
+{% if 'HX-Target' in request.headers %}
+
+{{render_partial(
+'fragments/toast.html.jinja',
+message='Sucessfully updated OPC settings.',
+type='success',
+delay=5000,
+)}}
+
+{% endif %}

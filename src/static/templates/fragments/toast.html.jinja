@@ -1,0 +1,29 @@
+{% set id = random_uuid() %}
+<div hx-swap-oob="afterbegin:#notifications">
+    <div class="toast align-items-center text-bg-{{type}} border overflow-x-hidden" role="alert" aria-live="assertive"
+        aria-atomic="true" data-bs-delay="{{ delay | default(5000, true) }}" id="toast-{{id}}">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ message }}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+        </div>
+        <div class="progress show" role="progressbar" aria-label="Basic example" aria-valuenow="100" aria-valuemin="0"
+            aria-valuemax="100" style="height: 3px">
+            <div class="progress-bar bg-primary"
+                style="animation: notification {{ delay | default(5000, true) / 1000}}s linear;">
+            </div>
+        </div>
+        <script>
+            $(function () {
+                let myToastEl = document.getElementById('toast-{{id}}')
+                let myToast = bootstrap.Toast.getOrCreateInstance(myToastEl)
+                myToastEl.addEventListener('hidden.bs.toast', function () {
+                    myToastEl.remove()
+                })
+                myToast.show()
+            })
+        </script>
+    </div>
+</div>
