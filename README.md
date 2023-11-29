@@ -17,12 +17,12 @@ A machine-learning model was trained on a public dataset with rock-paper-scissor
 The model classifies the images into 4 classes: blank, paper, rock, scissors.
 The is converted to [ONNX](https://onnx.ai/); an intermediate format that's build for inferencing.
 
-*Note*: This is repository does not include a trained model. See [model](./model) on how to train a model and convert it.
+*Note*: This is repository does not include a trained model. You can download the model [here](https://drive.google.com/file/d/1N6b6CaRUF6ZvSMxE-QaSqwtQ_eKpLZ_-/view?usp=drive_link) or train your on model (see [model](./model) on how to train a model and convert it). The onnx model should be placed under [src/static/model](src/static/model)
 
 ## Application
 
 The application is build in [Python 3.11](https://www.python.org/downloads/release/python-3110/)
-The application is deployed via [Docker](https://www.docker.com/) and talks to the SPS through [OPC-UA](https://opcfoundation.org/about/opc-technologies/opc-ua/).
+The application is deployed via [Docker](https://www.docker.com/) and talks to the PLC through [OPC-UA](https://opcfoundation.org/about/opc-technologies/opc-ua/).
 The results of the classification are communicated by a single integer of the following values `0: blank, 1: paper, 2: rock, 3: scissors`.
 The frontend is build with [HTMX](https://htmx.org/) and [Bootstrap](https://getbootstrap.com/) and served with [FastAPI](https://fastapi.tiangolo.com/).
 
