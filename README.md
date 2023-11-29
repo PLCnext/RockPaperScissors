@@ -17,7 +17,7 @@ A machine-learning model was trained on a public dataset with rock-paper-scissor
 The model classifies the images into 4 classes: blank, paper, rock, scissors.
 The is converted to [ONNX](https://onnx.ai/); an intermediate format that's build for inferencing.
 
-*Note*: This is repository does not include a trained model. You can download the model [here](https://drive.google.com/file/d/1N6b6CaRUF6ZvSMxE-QaSqwtQ_eKpLZ_-/view?usp=drive_link) or train your on model (see [model](./model) on how to train a model and convert it). The onnx model should be placed under [src/static/model](src/static/model). Change the `MODEL_VERSION` environment variable (see [docker-compose.yml](docker-compose.yml)) to match your version (`cnn_v{MODEL_VERSION}.onnx`).
+*Note*: This is repository does not include a trained model. You can download the model [here](https://drive.google.com/file/d/1N6b6CaRUF6ZvSMxE-QaSqwtQ_eKpLZ_-/view?usp=drive_link) or train your on model (see [model](./model) on how to train a model and convert it). The onnx model should be placed under [src/static/model](src/static/model). Change the `MODEL_VERSION` environment variable (see [docker-compose.yml](docker-compose.yml) and [src/settings.py](src/settings.py)) to match your version (`cnn_v{MODEL_VERSION}.onnx`).
 
 ## Application
 
